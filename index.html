@@ -3,89 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Physical Design VLSI Hub</title>
+<title>VLSI Physical Design Hub</title>
+
 <style>
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#0f172a;color:#e2e8f0}
-header{background:#020617;padding:20px;text-align:center}
-header h1{margin:0;color:#38bdf8}
-nav{display:flex;justify-content:center;gap:20px;background:#020617;padding:10px}
-nav a{color:#e2e8f0;text-decoration:none;font-weight:bold}
-section{padding:40px;max-width:1000px;margin:auto}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#1e293b;padding:20px;border-radius:10px;transition:0.3s}
-.card:hover{transform:translateY(-5px);background:#334155}
-.card h3{color:#38bdf8;margin-top:0}
-footer{background:#020617;text-align:center;padding:20px;margin-top:40px}
+:root{
+--bg:#0f172a;
+--text:#e2e8f0;
+--card:#1e293b;
+--accent:#38bdf8;
+--section:#020617;
+}
+
+body.light{
+--bg:#ffffff;
+--text:#0f172a;
+--card:#f1f5f9;
+--accent:#2563eb;
+--section:#e2e8f0;
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
+scroll-behavior:smooth;
+transition:0.3s;
+}
+
+header{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:radial-gradient(circle at center,#0f172a,#020617);
+}
+
+header h1{
+font-size:3rem;
+margin:0;
+color:var(--accent);
+}
+
+header p{
+max-width:700px;
+margin-top:20px;
+font-size:1.2rem;
+opacity:0.9;
+}
+
+.hero-chip{
+width:160px;
+height:160px;
+border:4px solid var(--accent);
+border-radius:20px;
+margin-bottom:30px;
+position:relative;
+animation:float 4s ease-in-out infinite;
+}
+
+.hero-chip:before,
+.hero-chip:after{
+content:"";
+position:absolute;
+left:-20px;
+right:-20px;
+top:50%;
+border-top:2px dashed var(--accent);
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:var(--section);
+display:flex;
+justify-content:center;
+gap:30px;
+padding:15px;
+z-index:1000;
+}
+
+nav a{
+text-decoration:none;
+color:var(--text);
+font-weight:bold;
+}
+
+.theme-toggle{
+position:absolute;
+right:20px;
+cursor:pointer;
+}
+
+section{
+max-width:1100px;
+margin:auto;
+padding:80px 20px;
+}
+
+h2{
+color:var(--accent);
+margin-bottom:30px;
+}
+
+.card-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:25px;
+}
+
+.card{
+background:var(--card);
+padding:25px;
+border-radius:12px;
+transition:0.3s;
+transform:translateY(30px);
+opacity:0;
+}
+
+.card.visible{
+transform:translateY(0);
+opacity:1;
+}
+
+.card:hover{
+transform:translateY(-6px);
+}
+
+.card h3{
+margin-top:0;
+color:var(--accent);
+}
+
+.flow{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-top:30px;
+}
+
+.flow-step{
+background:var(--card);
+padding:15px 20px;
+border-radius:10px;
+font-weight:bold;
+}
+
+footer{
+text-align:center;
+padding:30px;
+background:var(--section);
+margin-top:40px;
+}
+
 </style>
 </head>
+
 <body>
 
+<nav>
+<a href="#overview">Overview</a>
+<a href="#flow">PD Flow</a>
+<a href="#concepts">Key Stages</a>
+<a href="#timing">Timing</a>
+<div class="theme-toggle" onclick="toggleTheme()">🌗 Theme</div>
+</nav>
+
 <header>
-<h1>VLSI Physical Design Knowledge Hub</h1>
-<p>Concepts | Debugging | Timing | CTS | Routing | Signoff</p>
+<div class="hero-chip"></div>
+<h1>VLSI Physical Design</h1>
+<p>Interactive knowledge portal covering ASIC Physical Design flow, timing closure, CTS, routing, signoff and debugging concepts.</p>
 </header>
 
-<nav>
-<a href="#flow">PD Flow</a>
-<a href="#timing">Timing</a>
-<a href="#cts">CTS</a>
-<a href="#routing">Routing</a>
-<a href="#signoff">Signoff</a>
-</nav>
+<section id="overview">
+<h2>Physical Design Overview</h2>
+<p>
+Physical Design converts a synthesized netlist into a manufacturable layout (GDSII). It determines the placement of millions of standard cells, builds a balanced clock network, routes interconnects, and ensures that timing, power and signal integrity constraints are satisfied. The final output is sent for fabrication where silicon chips are produced.
+</p>
+<p>
+The goal of physical design is to achieve timing closure, minimize area, maintain power integrity and ensure manufacturability while satisfying all design rule constraints.
+</p>
+</section>
 
 <section id="flow">
 <h2>Physical Design Flow</h2>
-<div class="card-grid">
-<div class="card"><h3>Floorplanning</h3><p>Core utilization, macro placement, IO placement and power planning.</p></div>
-<div class="card"><h3>Placement</h3><p>Standard cell placement, legalization, congestion optimization.</p></div>
-<div class="card"><h3>CTS</h3><p>Clock tree synthesis, skew balancing and clock buffering.</p></div>
-<div class="card"><h3>Routing</h3><p>Global routing and detailed routing for signal connectivity.</p></div>
+
+<div class="flow">
+<div class="flow-step">Floorplanning</div>
+<div class="flow-step">Power Planning</div>
+<div class="flow-step">Placement</div>
+<div class="flow-step">CTS</div>
+<div class="flow-step">Routing</div>
+<div class="flow-step">STA</div>
+<div class="flow-step">Signoff</div>
 </div>
+
+</section>
+
+<section id="concepts">
+<h2>Major Physical Design Stages</h2>
+
+<div class="card-grid">
+
+<div class="card">
+<h3>Floorplanning</h3>
+<p>Defines the core area, IO placement, macro placement and utilization targets. Good floorplanning reduces congestion and improves timing closure.</p>
+</div>
+
+<div class="card">
+<h3>Power Planning</h3>
+<p>Creation of power rings, stripes and grids to distribute VDD and VSS across the chip while minimizing IR drop and electromigration risks.</p>
+</div>
+
+<div class="card">
+<h3>Placement</h3>
+<p>Standard cells are placed inside the core region while optimizing timing, wirelength and congestion. Includes legalization and optimization.</p>
+</div>
+
+<div class="card">
+<h3>Clock Tree Synthesis</h3>
+<p>Constructs a buffered clock network to distribute clock signals with controlled skew, latency and transition across all sequential elements.</p>
+</div>
+
+<div class="card">
+<h3>Routing</h3>
+<p>Connects all nets using metal layers through global and detailed routing while fixing DRC violations and antenna effects.</p>
+</div>
+
+<div class="card">
+<h3>Static Timing Analysis</h3>
+<p>Verifies setup and hold timing across all paths under multiple corners and modes ensuring the design meets clock frequency requirements.</p>
+</div>
+
+</div>
+
 </section>
 
 <section id="timing">
-<h2>Static Timing Analysis</h2>
-<div class="card-grid">
-<div class="card"><h3>Setup Timing</h3><p>Ensures data arrives before capture clock edge.</p></div>
-<div class="card"><h3>Hold Timing</h3><p>Ensures data does not change immediately after clock edge.</p></div>
-<div class="card"><h3>Clock Skew</h3><p>Difference between launch and capture clock arrival.</p></div>
-<div class="card"><h3>OCV & Derates</h3><p>Handling process and voltage variations in timing.</p></div>
-</div>
-</section>
+<h2>Timing Concepts</h2>
 
-<section id="cts">
-<h2>Clock Tree Concepts</h2>
 <div class="card-grid">
-<div class="card"><h3>H-Tree</h3><p>Symmetrical clock distribution structure.</p></div>
-<div class="card"><h3>Useful Skew</h3><p>Intentional skew to improve setup timing.</p></div>
-<div class="card"><h3>Clock Latency</h3><p>Time taken for clock to reach a flip-flop.</p></div>
-<div class="card"><h3>Clock Uncertainty</h3><p>Margin added for jitter and variation.</p></div>
-</div>
-</section>
 
-<section id="routing">
-<h2>Routing Optimization</h2>
-<div class="card-grid">
-<div class="card"><h3>Antenna Fixing</h3><p>Diode insertion to prevent gate oxide damage.</p></div>
-<div class="card"><h3>Buffer Insertion</h3><p>Improves signal transition and reduces delay.</p></div>
-<div class="card"><h3>Fanout Control</h3><p>Managing load capacitance for timing closure.</p></div>
-<div class="card"><h3>Congestion</h3><p>Managing routing density for better timing.</p></div>
+<div class="card">
+<h3>Setup Timing</h3>
+<p>Ensures that data launched from a flip-flop arrives at the capture flip-flop before the next clock edge considering clock skew and uncertainty.</p>
 </div>
-</section>
 
-<section id="signoff">
-<h2>Signoff Checks</h2>
-<div class="card-grid">
-<div class="card"><h3>LVS</h3><p>Layout versus schematic verification.</p></div>
-<div class="card"><h3>DRC</h3><p>Design rule checking for fabrication rules.</p></div>
-<div class="card"><h3>IR Drop</h3><p>Power integrity analysis across power grid.</p></div>
-<div class="card"><h3>EM</h3><p>Electromigration reliability analysis.</p></div>
+<div class="card">
+<h3>Hold Timing</h3>
+<p>Ensures that data does not change too quickly after the clock edge, preventing incorrect data capture.</p>
 </div>
+
+<div class="card">
+<h3>Clock Skew</h3>
+<p>Difference between clock arrival times at launch and capture registers. Controlled during CTS.</p>
+</div>
+
+<div class="card">
+<h3>OCV & Derates</h3>
+<p>On-chip variation modeling that accounts for manufacturing variations affecting cell delays and interconnect timing.</p>
+</div>
+
+</div>
+
 </section>
 
 <footer>
-<p>Physical Design Learning Portal</p>
+<p>Created for Physical Design Learning</p>
 </footer>
+
+<script>
+
+function toggleTheme(){
+document.body.classList.toggle('light');
+}
+
+const cards=document.querySelectorAll('.card');
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+});
+
+cards.forEach(card=>observer.observe(card));
+
+</script>
 
 </body>
 </html>
