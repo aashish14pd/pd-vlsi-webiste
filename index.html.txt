@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VLSI Physical Design Portfolio</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#flow">PD Flow</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+
+<section id="home" class="hero">
+
+<img src="images/chip.jpg" class="hero-img">
+
+<div class="hero-text">
+<h1>VLSI Physical Design Engineer</h1>
+<p>RTL to GDSII | Timing Closure | ASIC Implementation</p>
+</div>
+
+</section>
+
+
+<section id="about">
+
+<h2>About Me</h2>
+
+<p>
+Backend Physical Design Engineer with experience in RTL-to-GDSII flow,
+timing closure, and ASIC implementation using tools like Fusion Compiler,
+ICC2 and Innovus.
+</p>
+
+</section>
+
+
+<section id="flow">
+
+<h2>ASIC Physical Design Flow</h2>
+
+<div class="flow-container">
+
+<div class="flow-step">RTL</div>
+<div class="flow-step">Synthesis</div>
+<div class="flow-step">Floorplanning</div>
+<div class="flow-step">Placement</div>
+<div class="flow-step">CTS</div>
+<div class="flow-step">Routing</div>
+<div class="flow-step">Signoff</div>
+<div class="flow-step">GDSII</div>
+
+</div>
+
+</section>
+
+
+<section id="projects">
+
+<h2>Projects</h2>
+
+<p>
+SPI Enabled Dual Port RAM ASIC Implementation with MBIST and Scan Compression
+</p>
+
+</section>
+
+
+<section id="contact">
+
+<h2>Contact</h2>
+
+<p>Email: yourmail@email.com</p>
+
+</section>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
